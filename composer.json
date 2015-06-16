@@ -1,22 +1,20 @@
 {
-    "repositories": [
+    "name": "gears/gearbox",
+    "type": "library",
+    "description": "The Gearbox PHP framework",
+    "keywords": ["framework"],
+    "homepage": "http://gabrielrosas.com",
+    "version": "dev-master",
+    "authors": [
         {
-            "type": "package",
-            "package": {
-                "name": "gears/gearbox",
-                "version": "dev-master",
-                "source": {
-                    "url": "git@github.com:gearbox-php/gearbox.git",
-                    "type": "git",
-                    "reference": "master"
-                },
-                "autoload": {
-                    "psr-4": {
-                        "Gears\\Gearbox\\": "gears/gearbox/classes"
-                    }
-                }
-            }
+            "name": "Gabriel Rosas",
+            "email": "gabrielrosass@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+          "Gears\\Gearbox\\": "gears/gearbox/classes"
+        }
+    }
 }
