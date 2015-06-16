@@ -14,7 +14,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-          "Gears\\Gearbox\\": "gearbox/engine/classes"
+          "Gears\\Gearbox\\": "/classes"
         }
     }
 }
