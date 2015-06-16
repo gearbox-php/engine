@@ -1,5 +1,5 @@
 {
-    "name": "gears/gearbox",
+    "name": "gearbox/engine",
     "type": "library",
     "description": "The Gearbox PHP framework",
     "keywords": ["framework"],
