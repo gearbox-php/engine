@@ -1,27 +1,22 @@
 {
-  "repositories": [
-    {
-        "type": "package",
-        "package": {
-            "name": "gears/gearbox",
-            "version": "dev-master",
-            "source": {
-                "url": "git://github.com/weaverryan/derp-dangerzone.git",
-                "type": "git",
-                "reference": "master"
-            },
-            "authors": [
-                {
-                    "name": "Gabriel Rosas",
-                    "email": "gabrielrosass@gmail.com"
-                }
-            ],
-            "autoload": {
-                "psr-4": {
-                    "Gears\\Gearbox\\": "gears/gearbox/classes"
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "gears/gearbox",
+                "version": "dev-master",
+                "source": {
+                    "url": "git@github.com:gearbox-php/gearbox.git",
+                    "type": "git",
+                    "reference": "master"
+                },
+                "autoload": {
+                    "psr-4": {
+                        "Gears\\Gearbox\\": "gears/gearbox/classes"
+                    }
                 }
             }
         }
-      }
-  ]
+    ],
+    "require": {}
 }
