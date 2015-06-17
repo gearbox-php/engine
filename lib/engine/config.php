@@ -1,5 +1,5 @@
 <?
-namespace GearBox\Engine;
+namespace Gearbox\Engine;
 
 class Config{
 	public $environment;

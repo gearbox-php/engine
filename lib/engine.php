@@ -3,6 +3,7 @@
 namespace Gearbox;
 
 use Gearbox\Engine\Config;
+use Gearbox\Engine\Loader;
 
 class Engine{
 
@@ -11,6 +12,7 @@ class Engine{
   static  $baseDir;
   static private $config;
   static private $build_gears = [];
+  static private $run_app = null;
 
   static function createConfigFolder(){
 
@@ -29,7 +31,8 @@ class Engine{
 		self::$config = new Config();
 		if(file_exists(self::$baseDir."/config/config.php")) include self::$baseDir."/config/config.php";
 
-    return self::buildGears();
+    self::buildGears();
+    return self::runApp();
 	}
 
   static function gearboxDir($path = null){
@@ -67,11 +70,20 @@ class Engine{
 
 	static function addGear($options = []){
 		if (isset($options['build'])) self::$build_gears[] = $options['build'];
-		if (isset($options['loader'])) spl_autoload_register($options['loader']);
+		if (isset($options['loader'])) Loader::register($options['loader']);
+    if (isset($options['run'])){
+        if(empty(self::$run_app))
+          self::$run_app = $options['run'];
+        else
+          throw new \Exception('Duas Gears estão tentando rodar o sistema.');
+    }
 	}
 
 	static private function buildGears(){
-		foreach (self::$build_gears as $gear) if(!$gear()) return false;
-		return true;
+		foreach (self::$build_gears as $gear) $gear();
+	}
+
+  static private function runApp(){
+    return self::$run_app();
 	}
 }

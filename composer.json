@@ -17,7 +17,8 @@
     "autoload": {
         "files": ["build.php"],
         "classmap": [
-          "lib/engine.php"
+          "lib/engine.php",
+          "lib/engine/loader.php"
         ]
     }
 }
