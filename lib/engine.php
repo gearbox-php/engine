@@ -1,16 +1,18 @@
 <?
 
-namespace GearBox;
+namespace Gearbox;
+
+use Gearbox\Engine\Config;
 
 class Engine{
 
+  static  $gearboxDir;
   static  $vendorDir;
   static  $baseDir;
-  static  $config;
+  static private $config;
+  static private $build_gears = [];
 
   static function createConfigFolder(){
-    self::$vendorDir = dirname(dirname(__FILE__));
-    self::$baseDir = dirname($vendorDir);
 
     if(!file_exists(self::$baseDir."/config")){
       mkdir(self::$baseDir.'/config');
@@ -24,12 +26,32 @@ class Engine{
   }
 
   static function startApp(){
-    self::$vendorDir = dirname(dirname(__FILE__));
-    self::$baseDir = dirname($vendorDir);
-		self::$config = new GearBoxConfig();
-
+		self::$config = new Config();
 		if(file_exists(self::$baseDir."/config/config.php")) include self::$baseDir."/config/config.php";
+
+    return self::buildGears();
 	}
+
+  static function gearboxDir($path = null){
+    if(empty(self::$gearboxDir)){
+      self::$gearboxDir = dirname(dirname(dirname(__FILE__)));
+    }
+    return empty($path) ? self::$gearboxDir : self::$gearboxDir . "/$path";
+  }
+
+  static function vendorDir($path = null){
+    if(empty(self::$vendorDir)){
+      self::$vendorDir = dirname(self::gearboxDir());
+    }
+    return empty($path) ? self::$vendorDir : self::$vendorDir . "/$path";
+  }
+
+  static function baseDir($path = null){
+    if(empty(self::$vendorDir)){
+      self::$baseDir = dirname(self::vendorDir());
+    }
+    return empty($path) ? self::$baseDir : self::$baseDir . "/$path";
+  }
 
   static private function setConfig($call){
 		$call(self::$config);
@@ -43,4 +65,13 @@ class Engine{
     }
 	}
 
+	static private function addGear($options = []){
+		if (isset($options['build'])) self::$build_gears[] = $options['build'];
+		if (isset($options['loader'])) spl_autoload_register($options['loader']);
+	}
+
+	static private function buildGears(){
+		foreach (self::$build_gears as $gear) if(!$gear()) return false;
+		return true;
+	}
 }
