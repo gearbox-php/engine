@@ -12,12 +12,15 @@ class Engine{
     self::$vendorDir = dirname(dirname(__FILE__));
     self::$baseDir = dirname($vendorDir);
 
-    if(!file_exists(self::$baseDir."/config"))
+    if(!file_exists(self::$baseDir."/config")){
       mkdir(self::$baseDir.'/config');
+    }
 
-    $content = file_get_contents(self::$vendorDir.'/gearbox/engine/files/config_exemple.txt');
-    $file = self::$baseDir.'/config/config.php';
-    file_put_contents($file, $content);
+    if(!file_exists(self::$baseDir."/config/config.php")){
+      $content = file_get_contents(self::$vendorDir.'/gearbox/engine/files/config_exemple.txt');
+      $file = self::$baseDir.'/config/config.php';
+      file_put_contents($file, $content);
+    }
   }
 
   static function startApp(){
