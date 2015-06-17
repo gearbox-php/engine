@@ -65,7 +65,7 @@ class Engine{
     }
 	}
 
-	static private function addGear($options = []){
+	static function addGear($options = []){
 		if (isset($options['build'])) self::$build_gears[] = $options['build'];
 		if (isset($options['loader'])) spl_autoload_register($options['loader']);
 	}
