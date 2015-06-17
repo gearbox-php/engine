@@ -13,16 +13,9 @@
     ],
     "require": {},
     "autoload": {
-        "psr-4": {
-          "Gearbox\\Engine\\": "/lib"
-        },
+        "files": ["build.php"],
         "classmap": [
-          "Engine.php"
+          "lib/engine.php"
         ]
-    },
-    "scripts": {
-      "post-package-install":[
-        "GearBox\\Engine::createConfigFolder"
-      ]
     }
 }
