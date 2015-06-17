@@ -14,9 +14,11 @@
     "require": {},
     "autoload": {
         "psr-4": {
-          "Gearbox\\Engine": "/lib"
+          "Gearbox\\Engine\\": "/lib"
         },
-        "classmap": ["engine.php"]
+        "classmap": [
+          "Engine.php"
+        ]
     },
     "scripts": {
       "post-install-cmd":[
