@@ -21,10 +21,7 @@
         ]
     },
     "scripts": {
-      "post-install-cmd":[
-        "GearBox\\Engine::createConfigFolder"
-      ],
-      "post-update-cmd":[
+      "post-package-install":[
         "GearBox\\Engine::createConfigFolder"
       ]
     }
