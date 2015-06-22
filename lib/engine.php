@@ -24,8 +24,8 @@ class Engine{
 
   static function createEngineScript(){
     self::$scripts_gears['createFileExample'] = function($args){
-      Gearbox\Engine\Scripts::createFileExample();
-    }
+      \Gearbox\Engine\Scripts::createFileExample();
+    };
   }
 
   static function startApp(){
@@ -55,7 +55,7 @@ class Engine{
   }
 
   static function baseDir($path = null){
-    if(empty(self::$vendorDir)){
+    if(empty(self::$baseDir)){
       self::$baseDir = dirname(self::vendorDir());
     }
     return empty($path) ? self::$baseDir : self::$baseDir . "/$path";

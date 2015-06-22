@@ -10,13 +10,16 @@ class Scripts{
     $baseDir = en::baseDir();
     if(file_exists($path)){
 			$dir = dir($path);
-      while ($view = $dir->read()) {
-				if ($view != "." && $view != ".." && is_dir($path.'/'.$view)) {
-          $examplePath = $path.'/'.$view.'/example';
+      while ($gear = $dir->read()) {
+				if ($gear != "." && $gear != ".." && is_dir($path.'/'.$gear)) {
+          $examplePath = $path.'/'.$gear.'/examples';
           if(file_exists($examplePath)){
-            exec("cp -r $examplePath/* $baseDir/");
+            $command = ("cp -r $examplePath/* $baseDir/");
+            echo $command."\n";
+            exec($command);
           }
         }
       }
+    }
   }
 }
