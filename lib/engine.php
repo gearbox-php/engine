@@ -14,16 +14,15 @@ class Engine{
   static private $build_gears = [];
   static private $run_app = null;
 
-  static function createConfigFolder(){
+  static function createExamplesFiles(PackageEvent $event){
 
-    if(!file_exists(self::$baseDir."/config")){
-      mkdir(self::$baseDir.'/config');
-    }
+    $package = $event->getOperation()->getPackage();
+    $installationManager = $event->getComposer()->getInstallationManager();
+    $originDir = $installationManager->getInstallPath($package);
 
-    if(!file_exists(self::$baseDir."/config/config.php")){
-      $content = file_get_contents(self::$vendorDir.'/gearbox/engine/files/config_exemple.txt');
-      $file = self::$baseDir.'/config/config.php';
-      file_put_contents($file, $content);
+    if (file_exists($originDir.'/examples')) {
+        $basedir = self::baseDir();
+        exec("copy -r $originDir/examples/* $basedir/");
     }
   }
 
@@ -34,6 +33,10 @@ class Engine{
     self::buildGears();
     return self::runApp();
 	}
+
+  static function getConfig(){
+    return self::$config;
+  }
 
   static function gearboxDir($path = null){
     if(empty(self::$gearboxDir)){
@@ -72,9 +75,9 @@ class Engine{
 		if (isset($options['build'])) self::$build_gears[] = $options['build'];
 		if (isset($options['loader'])) Loader::register($options['loader']);
     if (isset($options['run'])){
-        if(empty(self::$run_app))
+        if(empty(self::$run_app)) {
           self::$run_app = $options['run'];
-        else
+        } else
           throw new \Exception('Duas Gears estão tentando rodar o sistema.');
     }
 	}
@@ -84,6 +87,7 @@ class Engine{
 	}
 
   static private function runApp(){
-    return self::$run_app();
+    $app = self::$run_app;
+    return $app();
 	}
 }
