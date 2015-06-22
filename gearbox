@@ -1,0 +1,9 @@
+<?
+
+include "vendor/autoload.php";
+
+$script = $argv[1];
+array_shift($argv);
+array_shift($argv);
+
+Gearbox\Engine::runScript($script,$argv);

@@ -12,17 +12,19 @@ class Engine{
   static  $baseDir;
   static private $config;
   static private $build_gears = [];
+  static private $scripts_gears = [];
   static private $run_app = null;
 
-  static function createExamplesFiles(PackageEvent $event){
 
-    $package = $event->getOperation()->getPackage();
-    $installationManager = $event->getComposer()->getInstallationManager();
-    $originDir = $installationManager->getInstallPath($package);
+  static function runScript($script, $args){
+    self::createEngineScript();
+    $script = self::$scripts_gears[$script];
+    $script($args);
+  }
 
-    if (file_exists($originDir.'/examples')) {
-        $basedir = self::baseDir();
-        exec("copy -r $originDir/examples/* $basedir/");
+  static function createEngineScript(){
+    self::$scripts_gears['createFileExample'] = function($args){
+      Gearbox\Engine\Scripts::createFileExample();
     }
   }
 
@@ -73,6 +75,11 @@ class Engine{
 
 	static function addGear($options = []){
 		if (isset($options['build'])) self::$build_gears[] = $options['build'];
+		if (isset($options['scripts'])){
+      foreach($options['scripts'] as $script => $function){
+          self::$scripts_gears[$script] = $function;
+      }
+    }
 		if (isset($options['loader'])) Loader::register($options['loader']);
     if (isset($options['run'])){
         if(empty(self::$run_app)) {
